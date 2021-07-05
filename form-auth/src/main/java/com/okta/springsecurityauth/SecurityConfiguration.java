@@ -6,12 +6,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
-            .authorizeRequests()
-            .anyRequest().authenticated()
+                .authorizeRequests()
+                .antMatchers("/authorize", "/token", "/revoke")
+                .permitAll()
+                .and()
+                .authorizeRequests()
+                .anyRequest().authenticated()
             .and()
             .formLogin()
             .and()
